@@ -15,13 +15,15 @@ import time
 # Set status to busy (Red)
 #TODO
 
-# Read camera settings file
+# Create camera object
+camera = picamera.PiCamera()
+camera.resolution = (2592, 1944)
+
+# Read camera settings
 #TODO
 
 # Set camera settings
 #TODO
-camera = picamera.PiCamera()
-camera.resolution = (2592, 1944)
 # camera.shutter_speed
 # camera.iso
 # camera.analog_gain
