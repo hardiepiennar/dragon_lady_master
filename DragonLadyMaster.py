@@ -8,12 +8,43 @@ June 2016
 # Import dependencies
 import picamera
 import time
+import RPi.GPIO as GPIO
 
 # Setup GPIO pins
-#TODO
+GPIO.setwarnings(False)
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(27, GPIO.OUT)
+GPIO.setup(22, GPIO.OUT)
+GPIO.setup(10, GPIO.OUT)
+
+# General Definitions
+RED = 27
+GREEN = 10 
+BLUE = 22 
+
+# Status led functions
+def ledOn(led):
+    GPIO.output(led, False)
+
+def ledOff(led):
+    GPIO.output(led, True)
+
+def setStatus(status):
+    if status == "busy":
+        ledOn(RED) 
+        ledOff(GREEN) 
+        ledOff(BLUE) 
+    elif status == "idle":
+        ledOn(GREEN)
+        ledOff(RED) 
+        ledOff(BLUE) 
+    elif status == "shutter":
+        ledOn(BLUE)
+        ledOff(RED) 
+        ledOff(GREEN) 
 
 # Set status to busy (Red)
-#TODO
+setStatus("busy")
 
 # Create camera object
 camera = picamera.PiCamera()
@@ -21,6 +52,7 @@ camera.resolution = (2592, 1944)
 
 # Read camera settings
 #TODO
+time.sleep(1)
 
 # Set camera settings
 #TODO
@@ -36,19 +68,24 @@ camera.resolution = (2592, 1944)
 #TODO
 
 # Set state to idle (Green)
-#TODO
+setStatus("idle")
 
 # Wait for camera trigger 
 #TODO
+time.sleep(1)
 
 # Set state to shutter (Blue)
-#TODO
+setStatus("shutter")
+
 
 # Send trigger to slave 
 #TODO
 
 # Take photo 
-camera.capture("foo.jpg")
+#TODO
+time.sleep(1)
+#camera.capture("foo.jpg")
 
 # Wait for trigger
+setStatus("idle")
 #TODO
